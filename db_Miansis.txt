@@ -1,0 +1,44 @@
+create database miansis;
+use miansis;
+
+create table empleado(
+      codEmpleado varchar(15) not null,
+      idEmpleado varchar(15) not null,
+      nomEmpleado varchar(50),
+      fotoEmpleado varchar(20),
+      tel varchar (20),
+      direccion varchar (20),
+      puesto varchar (20),
+      fechaIngreso varchar (20),
+      estadoEmpleado varchar (10),
+      llamadasAtencion varchar (30),
+      observaciones varchar (50),
+      cursos varchar (100),
+      conduce varchar (5),
+      licencia (40),
+      venc_licencia (40),
+      jefeInmediato (30),
+      primary key (codEmpleado)
+);
+
+CREATE TABLE IF NOT EXISTS `users` (
+  `user_id` int(11) NOT NULL COMMENT 'auto incrementing user_id of each user, unique index',
+  `firstname` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `lastname` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `user_name` varchar(64) COLLATE utf8_unicode_ci NOT NULL COMMENT 'user''s name, unique',
+  `user_password_hash` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT 'user''s password in salted and hashed format',
+  `user_email` varchar(64) COLLATE utf8_unicode_ci NOT NULL COMMENT 'user''s email, unique',
+  `date_added` datetime NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='user data';
+
+INSERT INTO `users` (`user_id`, `firstname`, `lastname`, `user_name`, `user_password_hash`, `user_email`, `date_added`) VALUES
+(1, 'Anyela', 'Orellana', 'admin', '$2y$10$MPVHzZ2ZPOWmtUUGCq3RXu31OTB.jo7M9LZ7PmPQYmgETSNn19ejO', 'admin@jcr.com', '2017-02-21 15:06:00');
+
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`user_id`),
+  ADD UNIQUE KEY `user_name` (`user_name`),
+  ADD UNIQUE KEY `user_email` (`user_email`);
+
+ALTER TABLE `users`
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'auto incrementing user_id of each user, unique index',AUTO_INCREMENT=2;
+
