@@ -6,20 +6,20 @@ $return_arr = array();
 /* If connection to database, run sql statement. */
 if ($con)
 {
-	
-	$fetch = mysqli_query($con,"SELECT * FROM clientes where nombre_cliente like '%" . mysqli_real_escape_string($con,($_GET['term'])) . "%' LIMIT 0 ,50"); 
-	
+
+	$fetch = mysqli_query($con,"SELECT * FROM empleado where codEmpleado like '%" . mysqli_real_escape_string($con,($_GET['term'])) . "%' LIMIT 0 ,50");
+
 	/* Retrieve and store in array the results of the query.*/
 	while ($row = mysqli_fetch_array($fetch)) {
-		$id_cliente=$row['id_cliente'];
-		$row_array['value'] = $row['nombre_cliente'];
-		$row_array['id_cliente']=$id_cliente;
-		$row_array['nombre_cliente']=$row['nombre_cliente'];
-		$row_array['telefono_cliente']=$row['telefono_cliente'];
-		$row_array['email_cliente']=$row['email_cliente'];
+		$cod=$row['codEmpleado'];
+		$row_array['value'] = $row['idEmpleado'];
+		$row_array['codEmpleado']=$cod;
+		$row_array['idEmpleado']=$row['idEmpleado'];
+		$row_array['nomEmpleado']=$row['nomEmpleado'];
+		$row_array['fotoEmpleado']=$row['fotoEmpleado'];
 		array_push($return_arr,$row_array);
     }
-	
+
 }
 
 /* Free connection resources. */

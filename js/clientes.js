@@ -23,7 +23,7 @@
 			function eliminar (id)
 		{
 			var q= $("#q").val();
-		if (confirm("Realmente deseas eliminar el cliente")){
+		if (confirm("Realmente deseas eliminar el empleado")){
 		$.ajax({
         type: "GET",
         url: "./ajax/buscar_clientes.php",
@@ -82,36 +82,38 @@ $( "#editar_cliente" ).submit(function( event ) {
 })
 
 	function obtener_datos(id){
-			var idEmpleado = $("#idEmpleado"+id).val();
-			var nomEmpleado = $("#nomEmpleado"+id).val();
-			var fotoEmpleado = $("#fotoEmpleado"+id).val();
-			var tel = $("#tel"+id).val();
+      var idEmpleado = $("#identidad"+id).val();
+			var nomEmpleado = $("#nombre"+id).val();
+			var fotoEmpleado = $("#foto"+id).val();
+			var tel = $("#telefono"+id).val();
 			var direccion = $("#direccion"+id).val();
 			var puesto = $("#puesto"+id).val();
-			var fechaIngreso = $("#fechaIngreso"+id).val();
-			var llamadasAtencion = $("#llamadasAtencion"+id).val();
+			var fechaIngreso = $("#ingreso"+id).val();
+			var estado = $("#estado"+id).val();
+			var llamadasAtencion = $("#lla_atencion"+id).val();
 			var observaciones = $("#observaciones"+id).val();
 			var cursos = $("#cursos"+id).val();
 			var conduce = $("#conduce"+id).val();
 			var licencia = $("#licencia"+id).val();
 			var venc_licencia = $("#venc_licencia"+id).val();
-			var jefeInmediato = $("#jefeInmediato"+id).val();
+			var jefeInmediato = $("#jefe"+id).val();
 
 
-			$("#mod_identidad").val(idEmpleado);
-			$("#mod_nombre").val(nomEmpleado);
-			$("#mod_foto").val(fotoEmpleado);
-			$("#mod_telefono").val(tel);
-			$("#mod_direccion").val(direccion);
-			$("#mod_puesto").val(puesto);
-			$("#mod_ingreo").val(fechaIngreso);
-			$("#mod_lla_atencion").val(llamadasAtencion);
-			$("#mod_observaciones").val(observaciones);
-			$("#mod_cursos").val(cursos);
-			$("#mod_conduce").val(conduce);
-			$("#mod_licencia").val(licencia);
-			$("#mod_ven_licencia").val(venc_licencia);
-			$("#mod_jefe").val(jefeInmediato);
+       $("#mod_identidadE").val(idEmpleado);
+			$("#mod_nombreE").val(nomEmpleado);
+			$("#mod_fotoE").val(fotoEmpleado);
+			$("#mod_telefonoE").val(tel);
+			$("#mod_direccionE").val(direccion);
+			$("#mod_puestoE").val(puesto);
+			$("#mod_ingreoE").val(fechaIngreso);
+			$("#mod_estadoE").val(estado);
+			$("#mod_lla_atencionE").val(llamadasAtencion);
+			$("#mod_observacionesE").val(observaciones);
+			$("#mod_cursosE").val(cursos);
+			$("#mod_conduceE").val(conduce);
+			$("#mod_licenciaE").val(licencia);
+			$("#mod_ven_licenciaE").val(venc_licencia);
+			$("#mod_jefeE").val(jefeInmediato);
 			$("#mod_id").val(id);
 
 		}
