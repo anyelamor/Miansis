@@ -41,13 +41,13 @@
 
 
 
-$( "#guardar_cliente" ).submit(function( event ) {
+$( "#guardar_empleado" ).submit(function( event ) {
   $('#guardar_datos').attr("disabled", true);
 
  var parametros = $(this).serialize();
 	 $.ajax({
 			type: "POST",
-			url: "ajax/nuevo_cliente.php",
+			url: "ajax/nuevo_empleado.php",
 			data: parametros,
 			 beforeSend: function(objeto){
 				$("#resultados_ajax").html("Mensaje: Cargando...");

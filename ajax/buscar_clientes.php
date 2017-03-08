@@ -1,14 +1,6 @@
 <?php
 
-	/*-------------------------
-	Autor: Obed Alvarado
-	Web: obedalvarado.pw
-	Mail: info@obedalvarado.pw
-	---------------------------*/
-	include('is_logged.php');//Archivo verifica que el usario que intenta acceder a la URL esta logueado
-	/* Connect To Database*/
-	require_once ("../config/db.php");//Contiene las variables de configuracion para conectar a la base de datos
-	require_once ("../config/conexion.php");//Contiene funcion que conecta a la base de datos
+	require_once("../conexion.php");
 
 	$action = (isset($_REQUEST['action'])&& $_REQUEST['action'] !=NULL)?$_REQUEST['action']:'';
 	if (isset($_GET['codigo'])){
@@ -47,9 +39,9 @@
 	}
 	if($action == 'ajax'){
 		// escaping, additionally removing everything that could be (html/javascript-) code
-         $q = mysqli_real_escape_string($con,(strip_tags($_REQUEST['q'], ENT_QUOTES)));
-		 $aColumns = array('nomEmpleado');//Columnas de busqueda
-		 $sTable = "empleado";
+         $q = $_REQUEST['q'];
+		 $aColumns = array('Name');//Columnas de busqueda
+		 $sTable = "[User]";
 		 $sWhere = "";
 		if ( $_GET['q'] != "" )
 		{
@@ -61,7 +53,6 @@
 			$sWhere = substr_replace( $sWhere, "", -3 );
 			$sWhere .= ')';
 		}
-		$sWhere.=" order by nomEmpleado";
 		include 'pagination.php'; //include pagination file
 		//pagination variables
 		$page = (isset($_REQUEST['page']) && !empty($_REQUEST['page']))?$_REQUEST['page']:1;
@@ -69,14 +60,18 @@
 		$adjacents  = 4; //gap between pages after number of adjacents
 		$offset = ($page - 1) * $per_page;
 		//Count the total number of row in your table*/
-		$count_query   = mysqli_query($con, "SELECT count(*) AS numrows FROM $sTable  $sWhere");
-		$row= mysqli_fetch_array($count_query);
+		$count_query   = sqlsrv_query($conexion, "SELECT distinct count(*) AS numrows FROM $sTable  $sWhere");
+		$row= sqlsrv_fetch_array($count_query, SQLSRV_FETCH_ASSOC);
 		$numrows = $row['numrows'];
+		echo $numrows;
 		$total_pages = ceil($numrows/$per_page);
-		$reload = './clientes.php';
+		$reload = './empleados.php';
 		//main query to fetch the data
-		$sql="SELECT * FROM  $sTable $sWhere LIMIT $offset,$per_page";
-		$query = mysqli_query($con, $sql);
+		$sql="SELECT distinct TOP $per_page * FROM  $sTable $sWhere";
+		$query=sqlsrv_query($conexion,$sql);
+		if( $query === false) {
+		die( print_r( sqlsrv_errors(), true) );
+		}
 		//loop through fetched data
 		if ($numrows>0){
 
@@ -84,28 +79,28 @@
 			<div class="table-responsive">
 			  <table class="table">
 				<tr  class="info">
-					<th>Codigo</th>
 					<th>Identidad</th>
 					<th>Nombre</th>
-					<th>Puesto</th>
-					<th>Teléfono</th>
+					<th>Cargo</th>
+					<th>Tarjeta de proximidad</th>
+					<th>Salario*H</th>
 					<th class='text-right'>Acciones</th>
 
 				</tr>
 				<?php
-				while ($row=mysqli_fetch_array($query)){
-						$cod=$row['codEmpleado'];
-						$identidad=$row['idEmpleado'];
-						$nombre=$row['nomEmpleado'];
-						$puesto=$row['puesto'];
-						$telefono=$row['tel'];
+				while ($row=sqlsrv_fetch_array($query, SQLSRV_FETCH_ASSOC)){
+						$cod=$row['IdentificationNumber'];
+						$identidad=$row['Name'];
+						$nombre=$row['Position'];
+						$puesto=$row['ProximityCard'];
+						$telefono=$row['HourSalary'];
 										?>
 
-					<input type="hidden" value="<?php echo $cod;?>" id="codigo<?php echo $cod;?>">
-					<input type="hidden" value="<?php echo $identidad;?>" id="identidad<?php echo $cod;?>">
-					<input type="hidden" value="<?php echo $nombre;?>" id="nombre<?php echo $cod;?>">
-					<input type="hidden" value="<?php echo $puesto;?>" id="puesto<?php echo $cod;?>">
-					<input type="hidden" value="<?php echo $telefono;?>" id="telefono<?php echo $cod;?>">
+					<input type="hidden" value="<?php echo $cod;?>" id="IdUser<?php echo $cod;?>">
+					<input type="hidden" value="<?php echo $identidad;?>" id="sueldo<?php echo $cod;?>">
+					<input type="hidden" value="<?php echo $nombre;?>" id="fechaIng<?php echo $cod;?>">
+					<input type="hidden" value="<?php echo $puesto;?>" id="observaciones<?php echo $cod;?>">
+					<input type="hidden" value="<?php echo $telefono;?>" id="jefeInme<?php echo $cod;?>">
 
 					<tr>
 
@@ -116,10 +111,20 @@
 						<td><?php echo $telefono;?></td>
 
 					<td ><span class="pull-right">
-					<a href="#" class='btn btn-default' title='Editar cliente' onclick="obtener_datos('<?php echo $cod;?>');" data-toggle="modal" data-target="#myModal2"><i class="glyphicon glyphicon-edit"></i></a>
+					<a href="#" class='btn btn-default'  rel="abrir" title="<?php echo $cod;?>"  data-toggle="modal" data-target="#nuevoEmpleado"><i class="glyphicon glyphicon-edit"></i></a>
 					<a href="#" class='btn btn-default' title='Borrar cliente' onclick="eliminar('<?php echo $cod; ?>')"><i class="glyphicon glyphicon-trash"></i> </a></span></td>
 
 					</tr>
+					<script>
+
+							$('a[rel="abrir"]').click(function(e) {
+					            e.preventDefault();
+
+					var temp = $(this).attr('title');// aca capturo en la variable temp lo que estaba en title
+					//y si queres podes enviarla de vuelta a la pagina, fuera de la ventana modal:
+					document.getElementById("codigo").value = temp; //aca le envio el valor de la variable temp al input de html con id org.
+				})
+					</script>
 					<?php
 				}
 				?>

@@ -1,24 +1,18 @@
 <?php
-	/*-------------------------
-	Autor: Obed Alvarado
-	Web: obedalvarado.pw
-	Mail: info@obedalvarado.pw
-	---------------------------*/
-	session_start();
-	if (!isset($_SESSION['user_login_status']) AND $_SESSION['user_login_status'] != 1) {
-        header("location: login.php");
-		exit;
-        }
 
+session_start();
+if($_SESSION['valid_user']!=true){
+    header('Location: login.php');
+    die();
+}
 	/* Connect To Database*/
-	require_once ("config/db.php");//Contiene las variables de configuracion para conectar a la base de datos
-	require_once ("config/conexion.php");//Contiene funcion que conecta a la base de datos
 
-	$active_facturas="";
-	$active_productos="";
-	$active_clientes="active";
-	$active_usuarios="";
-	$title="Emplados| JCR";
+	require_once ("conexion.php");//Contiene funcion que conecta a la base de datos
+
+
+	$title="Empleados| JCR";
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,7 +28,7 @@
 	<div class="panel panel-info">
 		<div class="panel-heading">
 			<div class="btn-group pull-right">
-			<button type='button' class="btn btn-info" data-toggle="modal" data-target="#nuevoCliente"><span class="glyphicon glyphicon-plus" ></span> Nuevo Empleado</button>
+			<button type='button' class="btn btn-info" data-toggle="modal" data-target="#nuevoEmpleado"><span class="glyphicon glyphicon-plus" ></span> Nuevo Empleado</button>
 			</div>
 			<div>
 				<form class="form-horizontal" role="form" id="datos_cotizacion">
@@ -64,7 +58,7 @@
 
 
 			<?php
-				include("modal/registro_clientes.php");
+				include("modal/registro_empleados.php");
 				include("modal/editar_clientes.php");
 			?>
 
@@ -84,6 +78,6 @@
 	<?php
 	include("footer.php");
 	?>
-	<script type="text/javascript" src="js/clientes.js"></script>
+	<script type="text/javascript" src="js/empleados.js"></script>
   </body>
 </html>
