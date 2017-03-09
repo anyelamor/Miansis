@@ -79,6 +79,7 @@
 			<div class="table-responsive">
 			  <table class="table">
 				<tr  class="info">
+					<th>Nº</th>
 					<th>Identidad</th>
 					<th>Nombre</th>
 					<th>Cargo</th>
@@ -89,7 +90,8 @@
 				</tr>
 				<?php
 				while ($row=sqlsrv_fetch_array($query, SQLSRV_FETCH_ASSOC)){
-						$cod=$row['IdentificationNumber'];
+						$cod=$row['IdUser'];
+						$id=$row['IdentificationNumber'];
 						$identidad=$row['Name'];
 						$nombre=$row['Position'];
 						$puesto=$row['ProximityCard'];
@@ -97,6 +99,7 @@
 										?>
 
 					<input type="hidden" value="<?php echo $cod;?>" id="IdUser<?php echo $cod;?>">
+					<input type="hidden" value="<?php echo $id;?>" id="id<?php echo $cod;?>">
 					<input type="hidden" value="<?php echo $identidad;?>" id="sueldo<?php echo $cod;?>">
 					<input type="hidden" value="<?php echo $nombre;?>" id="fechaIng<?php echo $cod;?>">
 					<input type="hidden" value="<?php echo $puesto;?>" id="observaciones<?php echo $cod;?>">
@@ -105,7 +108,8 @@
 					<tr>
 
 						<td><?php echo $cod; ?></td>
-						<td ><?php echo $identidad; ?></td>
+						<td><?php echo $id; ?></td>
+						<td><?php echo $identidad; ?></td>
 						<td><?php echo $nombre;?></td>
 						<td><?php echo $puesto;?></td>
 						<td><?php echo $telefono;?></td>
