@@ -114,10 +114,10 @@
 						<td><?php echo $puesto;?></td>
 						<td><?php echo $telefono;?></td>
 
-					<td ><span class="pull-right">
-					<a href="#" class='btn btn-default'  rel="abrir" title="<?php echo $cod;?>"  data-toggle="modal" data-target="#nuevoEmpleado"><i class="glyphicon glyphicon-edit"></i></a>
+					<td >
+						<a href="datosGEmp.php?id=<?php echo $cod; ?>" class='btn btn-default' ><i class="glyphicon glyphicon-edit"></i></a>
+						<span class="pull-right">
 					<a href="#" class='btn btn-default' title='Borrar cliente' onclick="eliminar('<?php echo $cod; ?>')"><i class="glyphicon glyphicon-trash"></i> </a></span></td>
-
 					</tr>
 					<script>
 
@@ -126,7 +126,7 @@
 
 					var temp = $(this).attr('title');// aca capturo en la variable temp lo que estaba en title
 					//y si queres podes enviarla de vuelta a la pagina, fuera de la ventana modal:
-					document.getElementById("codigo").value = temp; //aca le envio el valor de la variable temp al input de html con id org.
+					document.getElementById("Id").value = temp; //aca le envio el valor de la variable temp al input de html con id org.
 				})
 					</script>
 					<?php
