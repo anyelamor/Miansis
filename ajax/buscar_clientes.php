@@ -63,7 +63,6 @@
 		$count_query   = sqlsrv_query($conexion, "SELECT distinct count(*) AS numrows FROM $sTable  $sWhere");
 		$row= sqlsrv_fetch_array($count_query, SQLSRV_FETCH_ASSOC);
 		$numrows = $row['numrows'];
-		echo $numrows;
 		$total_pages = ceil($numrows/$per_page);
 		$reload = './empleados.php';
 		//main query to fetch the data
@@ -115,9 +114,9 @@
 						<td><?php echo $telefono;?></td>
 
 					<td >
-						<a href="datosGEmp.php?id=<?php echo $cod; ?>" class='btn btn-default' ><i class="glyphicon glyphicon-edit"></i></a>
 						<span class="pull-right">
-					<a href="#" class='btn btn-default' title='Borrar cliente' onclick="eliminar('<?php echo $cod; ?>')"><i class="glyphicon glyphicon-trash"></i> </a></span></td>
+						<a href="datosGEmp.php?id=<?php echo $cod; ?>" class='btn btn-default' ><i class="glyphicon glyphicon-eye-open"></i></a>
+					</span></td>
 					</tr>
 					<script>
 
@@ -126,7 +125,7 @@
 
 					var temp = $(this).attr('title');// aca capturo en la variable temp lo que estaba en title
 					//y si queres podes enviarla de vuelta a la pagina, fuera de la ventana modal:
-					document.getElementById("Id").value = temp; //aca le envio el valor de la variable temp al input de html con id org.
+					document.getElementById("codigo").value = temp; //aca le envio el valor de la variable temp al input de html con id org.
 				})
 					</script>
 					<?php

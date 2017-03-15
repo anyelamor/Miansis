@@ -8,8 +8,6 @@ if($_SESSION['valid_user']!=true){
 	/* Connect To Database*/
 
 	require_once ("conexion.php");//Contiene funcion que conecta a la base de datos
-
-
 	$title="Empleados| JCR";
 
 
@@ -38,12 +36,16 @@ if($_SESSION['valid_user']!=true){
 
 		</div>
 		<div class="panel-body">
-      <form class="form-horizontal" method="post" id="guardar_empleado" name="guardar_empleado">
+      <form class="form-horizontal" role="form">
+        <input type="hidden" class="form-control" id="q" placeholder="Nombre del empleado" >
 
         <?php
         $ide=$_GET['id'];
+        ?>
+        <a href="#" onkeyup='load();' class='btn btn-default'  rel="abrir" title="<?php echo $ide;?>"  data-toggle="modal" data-target="#nuevoEmpleado"><i class="glyphicon glyphicon-edit"></i></a>
 
-        require_once("conexion.php");
+        <?php
+
         $query = "select * from [User] where IdUser='$ide'";
         $resultado=sqlsrv_query($conexion,$query);
 
@@ -77,11 +79,6 @@ if($_SESSION['valid_user']!=true){
         $resultado2=sqlsrv_query($conexion,$query2, $params, $options);
         $row_count = sqlsrv_num_rows( $resultado2);
 
-        if ($row_count === false)
-        echo "no cuenta";
-        else
-        echo $row_count;
-
         if($row_count>0){
           while ($row2 = sqlsrv_fetch_array($resultado2, SQLSRV_FETCH_ASSOC))
           {
@@ -98,26 +95,21 @@ if($_SESSION['valid_user']!=true){
 
 
         ?>
-        <div class="form-group">
-  			<label for="Id" class="col-sm-1 control-label">Id</label>
-  			<div class="col-sm-2">
-  			<input type="text" class="form-control" name="Id" value="<?php echo $ide ?>">
-  			</div>
-        </div>
+  			<input type="hidden" class="form-control" name="Id" value="<?php echo $ide ?>">
 
       <div class="form-group">
 
       <label for="Nombre" class="col-sm-1 control-label">Nombre</label>
 			<div class="col-sm-5">
-			<input type="text" class="form-control" name="Nombre" value="<?php echo $nombre ?>">
+			<input type="text" class="form-control" name="Nombre" value="<?php echo $nombre ?>" readonly="readonly">
 			</div>
       <label for="Identidad" class="col-sm-1 control-label">Identidad</label>
 			<div class="col-sm-2">
-			<input type="text" class="form-control" name="Identidad" value="<?php echo $identidad ?>">
+			<input type="text" class="form-control" name="Identidad" value="<?php echo $identidad ?>" readonly="readonly">
 			</div>
       <label for="TipoSan" class="col-sm-1 control-label">Tipo Sangre</label>
 			<div class="col-sm-2">
-			<input type="text" class="form-control" name="TipoSan" value="<?php echo $tipoSan ?>">
+			<input type="text" class="form-control" name="TipoSan" value="<?php echo $tipoSan ?>" readonly="readonly">
 			</div>
       </div>
 
@@ -192,21 +184,12 @@ if($_SESSION['valid_user']!=true){
       <input type="text" class="form-control" name="Descrip" value="<?php echo $descrip ?>">
       </div>
       </div>
-
 		  </form>
-
-
-
 			<?php
 				include("modal/registro_empleados.php");
-				include("modal/editar_clientes.php");
 			?>
-
-
-
-
-
-
+      <div id="resultados"></div><!-- Carga los datos ajax -->
+      <div class='outer_div'></div><!-- Carga los datos ajax -->
 
   </div>
 </div>
@@ -216,6 +199,6 @@ if($_SESSION['valid_user']!=true){
 	<?php
 	include("footer.php");
 	?>
-	<script type="text/javascript" src="js/empleados.js"></script>
+	<script type="text/javascript" src="js/empleados2.js"></script>
   </body>
 </html>
