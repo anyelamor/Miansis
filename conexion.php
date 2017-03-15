@@ -1,5 +1,5 @@
 <?php
-$serverName = "MICHELL-PC\sqlexpress, 1433";
+$serverName = "DESKTOP-PL9USKE\sqlexpress, 1433";
 
 $connectionInfo = array( "Database"=>"BDBioAdminSQL");
 $conexion = sqlsrv_connect( $serverName, $connectionInfo);

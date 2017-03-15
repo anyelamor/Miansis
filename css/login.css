@@ -4,12 +4,29 @@ p    {color:white}
 body, html {
     height: 100%;
     background-repeat: no-repeat;
-    /*background-image: linear-gradient(135deg, rgba(31,123,229,1) 0%, rgba(58,139,232,1) 47%, rgba(70,153,234,1) 92%, rgba(72,156,234,1) 100%);*/
-    background: url(http://lorempixel.com/1920/1920/city/9/) no-repeat center center fixed;
+
+    background: ;
+    position: center;
     background-size: 100% 100%;
 }
-
+.trans{
+      background-color:#00BB00;
+      color:#CC0000;
+      position:relative;
+      text-align:center;
+      top:50px;
+      left:40px;
+      padding:65px;
+      font-size:25px;
+      font-weight:bold;
+      width:300px;
+      z-index:1;
+      filter:alpha(opacity=60);
+      float:left;-moz-opacity:.60;
+      opacity:.60
+    }
 .card-container.card {
+   top: 300px;
     width: 350px;
     padding: 40px 40px;
 }
@@ -27,7 +44,7 @@ body, html {
  * Card component
  */
 .card {
-    background-color: #F7F7F7;
+    background-color: #5DB3E5;
     /* just in case there no content*/
     padding: 20px 25px 30px;
     margin: 0 auto 25px;
@@ -39,6 +56,10 @@ body, html {
     -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
     -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    z-index:1;
+    filter:alpha(opacity=60);
+    float:left;-moz-opacity:.60;
+    opacity:.60
 }
 
 .profile-img-card {
