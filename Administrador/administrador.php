@@ -14,21 +14,22 @@
 </head>
 <body>
  <div class="container">
-        <div class="card card-container">
-            <img id="profile-img" class="profile-img-card" src="../img/avatar_2x.png" />
-            <p id="profile-name" class="profile-name-card"></p>
+<div class="lol">
+        <img  src="../img/admin3.png" />
+</div>
+           <div class="alv">
+
             <form method="post" accept-charset="utf-8" action="classes/log_action.php" name="loginform" autocomplete="off" role="form" class="form-signin">
 
 					      <span id="reauth-email" class="reauth-email"></span>
                 <input class="form-control" placeholder="Usuario" name="nombre" type="text" autofocus="" required >
                 <input class="form-control" placeholder="Contraseña" name="pass" type="password"  autocomplete="off" required >
-                <button type="submit" class="btn btn-lg btn-success btn-block btn-signin" name="login" >Iniciar Sesión</button>
+                <button type="submit" class="btn btn-lg btn-info btn-block btn-signin" name="login" >Iniciar Sesión</button>
             </form><!-- /form -->
 
         </div><!-- /card-container -->
     </div>
   <!-- /container -->
-  <div class="trans">
-  </div>
+
   </body>
 </html>

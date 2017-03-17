@@ -4,29 +4,12 @@ p    {color:white}
 body, html {
     height: 100%;
     background-repeat: no-repeat;
+    /*background-image: linear-gradient(135deg, rgba(31,123,229,1) 0%, rgba(58,139,232,1) 47%, rgba(70,153,234,1) 92%, rgba(72,156,234,1) 100%);*/
 
-    background: ;
-    position: center;
     background-size: 100% 100%;
 }
-.trans{
-      background-color:#00BB00;
-      color:#CC0000;
-      position:relative;
-      text-align:center;
-      top:50px;
-      left:40px;
-      padding:65px;
-      font-size:25px;
-      font-weight:bold;
-      width:300px;
-      z-index:1;
-      filter:alpha(opacity=60);
-      float:left;-moz-opacity:.60;
-      opacity:.60
-    }
+
 .card-container.card {
-   top: 300px;
     width: 350px;
     padding: 40px 40px;
 }
@@ -39,16 +22,21 @@ body, html {
     user-select: none;
     cursor: default;
 }
+.lol{
+
+  margin-top: 30px;
+  text-align: center;
+}
 
 /*
  * Card component
  */
 .card {
-    background-color: #5DB3E5;
+    background-color: #F7F7F7;
     /* just in case there no content*/
-    padding: 20px 25px 30px;
+
     margin: 0 auto 25px;
-    margin-top: 50px;
+    margin-top:5px;
     /* shadows and rounded borders */
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
@@ -56,10 +44,6 @@ body, html {
     -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
     -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-    z-index:1;
-    filter:alpha(opacity=60);
-    float:left;-moz-opacity:.60;
-    opacity:.60
 }
 
 .profile-img-card {
@@ -101,7 +85,7 @@ body, html {
 .form-signin #inputEmail,
 .form-signin #inputPassword {
     direction: ltr;
-    height: 44px;
+    height: 30px;
     font-size: 16px;
 }
 
@@ -109,7 +93,7 @@ body, html {
 .form-signin input[type=password],
 .form-signin input[type=text],
 .form-signin button {
-    width: 100%;
+
     display: block;
     margin-bottom: 10px;
     z-index: 1;
@@ -117,6 +101,13 @@ body, html {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
+
+ border-radius: 4px;
+}
+.alv{
+  text-align: center;
+ width: 25%;
+ margin-left: 390px;
 }
 
 .form-signin .form-control:focus {
@@ -127,9 +118,9 @@ body, html {
 }
 
 .btn.btn-signin {
-    /*background-color: #4d90fe; */
-    /*background-color: rgb(104, 145, 162);
-    / background-color: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));*/
+  background-color:  #34aad9 ;
+  /*background-color: rgb(104, 145, 162);
+ background-color: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));*/
     padding: 0px;
     font-weight: 700;
     font-size: 14px;
@@ -152,5 +143,5 @@ body, html {
 .forgot-password:hover,
 .forgot-password:active,
 .forgot-password:focus{
-    color: rgb(12, 97, 33);
+    color: #4d90fe;
 }
