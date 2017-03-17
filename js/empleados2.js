@@ -24,7 +24,7 @@ $( "#guardar_empleado" ).submit(function( event ) {
  var parametros = $(this).serialize();
 	 $.ajax({
 			type: "POST",
-			url: "../ajax/nuevo_empleado.php",
+			url: "ajax/nuevo_empleado.php",
 			data: parametros,
 			 beforeSend: function(objeto){
 				$("#resultados_ajax").html("Mensaje: Cargando...");
@@ -37,3 +37,80 @@ $( "#guardar_empleado" ).submit(function( event ) {
 	});
   event.preventDefault();
 })
+
+$( "#guardar_llamadas" ).submit(function( event ) {
+  $('#guardar_datos2').attr("disabled", true);
+
+ var parametros = $(this).serialize();
+	 $.ajax({
+			type: "POST",
+			url: "ajax/nuevoLlamada.php",
+			data: parametros,
+			 beforeSend: function(objeto){
+				$("#resultados_ajax2").html("Mensaje: Cargando...");
+			  },
+			success: function(datos){
+			$("#resultados_ajax2").html(datos);
+			$('#guardar_datos2').attr("disabled", false);
+			load(1);
+		  }
+	});
+  event.preventDefault();
+})
+
+$( "#editar_cliente" ).submit(function( event ) {
+  $('#actualizar_datos').attr("disabled", true);
+
+ var parametros = $(this).serialize();
+	 $.ajax({
+			type: "POST",
+			url: "ajax/editar_empleado.php",
+			data: parametros,
+			 beforeSend: function(objeto){
+				$("#resultados_ajax2").html("Mensaje: Cargando...");
+			  },
+			success: function(datos){
+			$("#resultados_ajax2").html(datos);
+			$('#actualizar_datos').attr("disabled", false);
+			load(1);
+		  }
+	});
+  event.preventDefault();
+})
+
+	function obtener_datos(id){
+      var idEmpleado = $("#identidad"+id).val();
+			var nomEmpleado = $("#nombre"+id).val();
+			var fotoEmpleado = $("#foto"+id).val();
+			var tel = $("#telefono"+id).val();
+			var direccion = $("#direccion"+id).val();
+			var puesto = $("#puesto"+id).val();
+			var fechaIngreso = $("#ingreso"+id).val();
+			var estado = $("#estado"+id).val();
+			var llamadasAtencion = $("#lla_atencion"+id).val();
+			var observaciones = $("#observaciones"+id).val();
+			var cursos = $("#cursos"+id).val();
+			var conduce = $("#conduce"+id).val();
+			var licencia = $("#licencia"+id).val();
+			var venc_licencia = $("#venc_licencia"+id).val();
+			var jefeInmediato = $("#jefe"+id).val();
+
+
+       $("#mod_identidadE").val(idEmpleado);
+			$("#mod_nombreE").val(nomEmpleado);
+			$("#mod_fotoE").val(fotoEmpleado);
+			$("#mod_telefonoE").val(tel);
+			$("#mod_direccionE").val(direccion);
+			$("#mod_puestoE").val(puesto);
+			$("#mod_ingreoE").val(fechaIngreso);
+			$("#mod_estadoE").val(estado);
+			$("#mod_lla_atencionE").val(llamadasAtencion);
+			$("#mod_observacionesE").val(observaciones);
+			$("#mod_cursosE").val(cursos);
+			$("#mod_conduceE").val(conduce);
+			$("#mod_licenciaE").val(licencia);
+			$("#mod_ven_licenciaE").val(venc_licencia);
+			$("#mod_jefeE").val(jefeInmediato);
+			$("#mod_id").val(id);
+
+		}

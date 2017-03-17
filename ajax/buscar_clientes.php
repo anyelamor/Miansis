@@ -79,11 +79,11 @@
 			  <table class="table">
 				<tr  class="info">
 					<th>Nº</th>
+					<th>Foto</th>
 					<th>Identidad</th>
 					<th>Nombre</th>
 					<th>Cargo</th>
-					<th>Tarjeta de proximidad</th>
-					<th>Salario*H</th>
+					<th>Estado</th>
 					<th class='text-right'>Acciones</th>
 
 				</tr>
@@ -93,8 +93,13 @@
 						$id=$row['IdentificationNumber'];
 						$identidad=$row['Name'];
 						$nombre=$row['Position'];
-						$puesto=$row['ProximityCard'];
-						$telefono=$row['HourSalary'];
+						$puesto=$row['Active'];
+						if($puesto=1){
+							$puesto1="Activo";
+						}else{
+							$puesto1="Pasivo";
+						}
+						$Picture=$row['Picture'];
 										?>
 
 					<input type="hidden" value="<?php echo $cod;?>" id="IdUser<?php echo $cod;?>">
@@ -102,32 +107,21 @@
 					<input type="hidden" value="<?php echo $identidad;?>" id="sueldo<?php echo $cod;?>">
 					<input type="hidden" value="<?php echo $nombre;?>" id="fechaIng<?php echo $cod;?>">
 					<input type="hidden" value="<?php echo $puesto;?>" id="observaciones<?php echo $cod;?>">
-					<input type="hidden" value="<?php echo $telefono;?>" id="jefeInme<?php echo $cod;?>">
+					<input type="hidden" value="<?php echo $Picture;?>" id="jefeInme<?php echo $cod;?>">
 
 					<tr>
-
 						<td><?php echo $cod; ?></td>
+						<td><?php echo $Picture;?></td>
 						<td><?php echo $id; ?></td>
 						<td><?php echo $identidad; ?></td>
 						<td><?php echo $nombre;?></td>
-						<td><?php echo $puesto;?></td>
-						<td><?php echo $telefono;?></td>
+						<td><?php echo $puesto1;?></td>
 
 					<td >
 						<span class="pull-right">
 						<a href="datosGEmp.php?id=<?php echo $cod; ?>" class='btn btn-default' ><i class="glyphicon glyphicon-eye-open"></i></a>
 					</span></td>
 					</tr>
-					<script>
-
-							$('a[rel="abrir"]').click(function(e) {
-					            e.preventDefault();
-
-					var temp = $(this).attr('title');// aca capturo en la variable temp lo que estaba en title
-					//y si queres podes enviarla de vuelta a la pagina, fuera de la ventana modal:
-					document.getElementById("codigo").value = temp; //aca le envio el valor de la variable temp al input de html con id org.
-				})
-					</script>
 					<?php
 				}
 				?>

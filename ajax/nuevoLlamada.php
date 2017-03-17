@@ -1,28 +1,17 @@
 <?php
-	if (empty($_POST['codigo'])) {
+	if (empty($_POST['codigo2'])) {
            $errors[] = "Nombre vacío";
-        } else if (!empty($_POST['codigo'])){
+        } else if (!empty($_POST['codigo2'])){
 					/* Connect To Database*/
 					require_once ("../conexion.php");
 
-					$cod=$_POST["codigo"];
-					$sueldo=$_POST["sueldo"];
-					$fecha=$_POST["fecha_ing"];
-					$obs=$_POST["obs"];
-
-					$estado=$_POST["estado"];
-					$tipoS=$_POST["tipoS"];
-					$tipoE=$_POST["tipoE"];
-
-					if (empty($_POST['jefe'])) {
-				          $jefe=1;
-				        } else{
-									$jefe=$_POST["jefe"];
-								}
+					$cod=$_POST["codigo2"];
+					$descri=$_POST["desc"];
+					$fecha=$_POST["fecha"];
 
 
-					$sql="INSERT INTO empleado(IdUser,sueldo,fechaIng,observaciones,jefeInme,idEstado,idTipoS,idTipoE)
-						VALUES ('$cod','$sueldo','$fecha','$obs','$jefe','$estado','$tipoS','$tipoE')";
+					$sql="INSERT INTO llamadasAten(descripcion,fecha,codigo)
+						VALUES ('$descri','$fecha','$cod')";
 						$recurso=sqlsrv_prepare($conexion,$sql);
 
 
@@ -36,7 +25,8 @@
 						}
 						else
 						{
-							echo"Datos ya existen";
+							echo"Empleado ya existe";
+							die( print_r( sqlsrv_errors(), true) );
 						}
 
 		} else {

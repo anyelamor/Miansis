@@ -14,9 +14,8 @@
 			<form class="form-horizontal" method="post" id="guardar_empleado" name="guardar_empleado">
 			<div id="resultados_ajax"></div>
 			<div class="form-group">
-			<label for="identidad" class="col-sm-3 control-label">Id</label>
 			<div class="col-sm-8">
-			<input type="text" class="form-control" id="codigo" name="codigo" >
+			<input type="hidden" class="form-control" id="codigo" name="codigo" >
 			</div>
 			</div>
 
@@ -43,6 +42,26 @@
 				<div class="col-sm-8">
 				  <input type="text" class="form-control" id="jefe" name="jefe" >
 				</div>
+				<div>
+					<?php
+					require_once("conexion.php");
+					$query = "select * from [User]";
+					$resultado=sqlsrv_query($conexion,$query);
+					?>
+					<select name="Name">
+					<?php
+					while ($row = sqlsrv_fetch_array($resultado, SQLSRV_FETCH_ASSOC))
+					{
+					?>
+					<option value="<?php echo $row['IdUser']?>">
+					<?php echo $row['Name']; ?>
+					</option>
+					<?php
+					}
+					?>
+					</select><br>
+				</div>
+
 			  </div>
 				<div class="form-group">
 				<label for="nombre" class="col-sm-3 control-label">Estado</label>
