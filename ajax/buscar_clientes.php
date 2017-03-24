@@ -94,7 +94,7 @@
 						$identidad=$row['Name'];
 						$nombre=$row['Position'];
 						$puesto=$row['Active'];
-						if($puesto=1){
+						if($puesto==1){
 							$puesto1="Activo";
 						}else{
 							$puesto1="Pasivo";
@@ -106,7 +106,7 @@
 					<input type="hidden" value="<?php echo $id;?>" id="id<?php echo $cod;?>">
 					<input type="hidden" value="<?php echo $identidad;?>" id="sueldo<?php echo $cod;?>">
 					<input type="hidden" value="<?php echo $nombre;?>" id="fechaIng<?php echo $cod;?>">
-					<input type="hidden" value="<?php echo $puesto;?>" id="observaciones<?php echo $cod;?>">
+					<input type="hidden" value="<?php echo $puesto1;?>" id="observaciones<?php echo $cod;?>">
 					<input type="hidden" value="<?php echo $Picture;?>" id="jefeInme<?php echo $cod;?>">
 
 					<tr>

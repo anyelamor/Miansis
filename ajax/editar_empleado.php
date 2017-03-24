@@ -1,10 +1,9 @@
 <?php
-	include('is_logged.php');//Archivo verifica que el usario que intenta acceder a la URL esta logueado
-	/*Inicia validacion del lado del servidor*/
+
 	if (empty($_POST['mod_id'])) {
            $errors[] = "ID vacío";
         		}  else if (
-			!empty($_POST['mod_id']) 
+			!empty($_POST['mod_id'])
 		){
 		/* Connect To Database*/
 		require_once ("../config/db.php");//Contiene las variables de configuracion para conectar a la base de datos

@@ -1,9 +1,9 @@
 	<?php
-		if (isset($con))
+		if (isset($conexion))
 		{
 	?>
 	<!-- Modal -->
-	<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal fade" id="ModificarEmpleado" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	  <div class="modal-dialog" role="document">
 		<div class="modal-content">
 		  <div class="modal-header">
@@ -12,112 +12,142 @@
 		  </div>
 		  <div class="modal-body">
 			<form class="form-horizontal" method="post" id="editar_cliente" name="editar_cliente">
-			<div id="resultados_ajax2"></div>
-			 <div class="form-group">
-			 <label for="mod_identidadE" class="col-sm-3 control-label">Identidad</label>
-			 <div class="col-sm-8">
-				 <input type="text" class="form-control" id="mod_identidadE" name="mod_identidadE"  required>
-				 <input type="hidden" name="mod_id" id="mod_id">
-				  </div>
-			 </div>
-			 <div class="form-group">
-			 <label for="mod_nombreE" class="col-sm-3 control-label">Nombre</label>
-			 <div class="col-sm-8">
-				 <input type="text" class="form-control" id="mod_nombreE" name="mod_nombreE"  required>
-			 </div>
-			 </div>
-
-			   <div class="form-group">
-				<label for="mod_fotoE" class="col-sm-3 control-label">Foto</label>
+				<div id="resultados_ajax"></div>
+				<div class="form-group">
 				<div class="col-sm-8">
-				  <input type="text" class="form-control" id="mod_fotoE" name="mod_fotoE">
+				<input type="hidden" class="form-control" id="codigo3" name="codigo3" >
 				</div>
-			  </div>
+				</div>
+
+				<?php if($row_count3>0){ ?>
+	      <div class="form-group">
+	        <label for="fechaS" class="col-sm-3 control-label">Fecha Salida</label>
+	        <div class="col-sm-8">
+	        <input type="text" class="form-control" name="fechaS" value="<?php echo $fechaS ?>" readonly="readonly">
+	        </div>
+
+				</div>
+				<div class="form-group">
+	      <label for="Moti" class="col-sm-3 control-label">Motivo</label>
+	      <div class="col-sm-8">
+	      <textarea type="text" class="form-control" name="Moti" readonly="readonly"> <?php echo $motiv ?> </textarea>
+	      </div>
+	      </div>
+	      <?php } ?>
+
+	      <?php
+	      if($row_count1>0){ ?>
+	      <div class="form-group">
+	        <label for="TipoEmp" class="col-sm-3 control-label">Tipo Empleado</label>
+	        <div class="col-sm-4">
+	        <input type="text" class="form-control" name="TipoEmp" id='campo1' value="<?php echo $tipoEmpl ?>" readonly="readonly">
+					</div>
+					<div class="col-sm-4">
+					<?php
+					require_once("conexion.php");
+					$query = "select * from tipoEmpleado";
+					$resultado=sqlsrv_query($conexion,$query);
+		      if( $resultado === false) {
+		    	die( print_r( sqlsrv_errors(), true) );
+					}
+					?>
+					<select name="tipoE" id='slc'>
+					<?php
+					while ($row = sqlsrv_fetch_array($resultado, SQLSRV_FETCH_ASSOC))
+					{
+					?>
+					<option value="<?php echo $row['idTipoE']?>">
+					<?php echo $row['tipoE']; ?>
+					</option>
+					<?php
+					}
+					?>
+					</select>
+					<script>
+					var element = document.getElementById('slc');
+
+						 element.addEventListener("change", function(){
+								var campo1 = document.getElementById('campo1'),
+
+								 campo1.value = this.options[this.selectedIndex].text;
+
+						 });
+					</script>
+	        </div>
+				</div>
 
 				<div class="form-group">
-			 <label for="mod_telefonoE" class="col-sm-3 control-label">Teléfono</label>
-			 <div class="col-sm-8">
-				 <input type="text" class="form-control" id="mod_telefonoE" name="mod_telefonoE">
-			 </div>
-			 </div>
-
-			 <div class="form-group">
-		  <label for="mod_direccionE" class="col-sm-3 control-label">Dirección</label>
-		  <div class="col-sm-8">
-		 	 <input type="text" class="form-control" id="mod_direccionE" name="mod_direccionE">
-		  </div>
-		  </div>
-
-			<div class="form-group">
-		 <label for="mod_puestoE" class="col-sm-3 control-label">Puesto</label>
-		 <div class="col-sm-8">
-			<input type="text" class="form-control" id="mod_puestoE" name="mod_puestoE">
-		 </div>
-		 </div>
-
-		 <div class="form-group">
-		 <label for="mod_ingresoE" class="col-sm-3 control-label">Fecha de Ingreso</label>
-		 <div class="col-sm-8">
-		 <input type="text" class="form-control" id="mod_ingresoE" name="mod_ingresoE">
-		 </div>
-		 </div>
-
-			   <div class="form-group">
-				<label for="mod_estadoE" class="col-sm-3 control-label">Estado</label>
+	        <label for="FechaIngr" class="col-sm-3 control-label">Fecha Ingreso</label>
+	        <div class="col-sm-8">
+	        <input type="text" class="form-control" name="FechaIngr" value="<?php echo $fechaIng ?>">
+	        </div>
+				</div>
+				<div class="form-group">
+	      <label for="JefeInm" class="col-sm-3 control-label">Jefe Inmediato</label>
 				<div class="col-sm-8">
-				 <select class="form-control" id="mod_estadoE" name="mod_estadoE" required>
-					<option value="">-- Selecciona estado --</option>
-					<option value="1" selected>Activo</option>
-					<option value="0">Inactivo</option>
-				  </select>
+				<input type="text" class="form-control" name="JefeInm" value="<?php echo $jefeI ?>">
 				</div>
-			  </div>
-				<div class="form-group">
-			  <label for="mod_lla_atencionE" class="col-sm-3 control-label">Llamadas de Atención</label>
-			  <div class="col-sm-8">
-			  <input type="text" class="form-control" id="mod_lla_atencionE" name="mod_lla_atencionE">
-			  </div>
-			  </div>
-				<div class="form-group">
-				<label for="mod_observacionesE" class="col-sm-3 control-label">Observaciones</label>
-				<div class="col-sm-8">
-				<input type="text" class="form-control" id="mod_observacionesE" name="mod_observacionesE">
-				</div>
-				</div>
-				<div class="form-group">
-				<label for="mod_cursosE" class="col-sm-3 control-label">Cursos</label>
-				<div class="col-sm-8">
-				<input type="text" class="form-control" id="mod_cursosE" name="mod_cursosE">
-				</div>
-				</div>
-				<div class="form-group">
-			 <label for="mod_conduceE" class="col-sm-3 control-label">Conduce?</label>
-			 <div class="col-sm-8">
-				<select class="form-control" id="mod_conduceE" name="mod_conduceE" required>
-				 <option value="">-- Selecciona tu respuesta --</option>
-				 <option value="Si" selected>Si</option>
-				 <option value="No">No</option>
-				 </select>
-			 </div>
-			 </div>
-			 <div class="form-group">
-			 <label for="mod_licenciaE" class="col-sm-3 control-label">Licencia</label>
-			 <div class="col-sm-8">
-			 <input type="text" class="form-control" id="mod_licenciaE" name="mod_licenciaE">
-			 </div>
-			 </div>
-			 <div class="form-group">
-			 <label for="mod_ven_licenciaE" class="col-sm-3 control-label">Vencimiento de Licencia</label>
-			 <div class="col-sm-8">
-			 <input type="text" class="form-control" id="mod_ven_licenciaE" name="mod_ven_licenciaE">
-			 </div>
-			 </div>
+	      </div>
 
-			 		  </div>
-		  <div class="modal-footer">
-			<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-			<button type="submit" class="btn btn-primary" id="actualizar_datos">Actualizar datos</button>
-		  </div>
+	      <div class="form-group">
+	        <label for="TipoSan" class="col-sm-3 control-label">Tipo Sangre</label>
+	  			<div class="col-sm-4">
+	  			<input type="text" class="form-control" name="TipoSan" value="<?php echo $tipoSan ?>" readonly="readonly">
+				</div>
+				<div class="col-sm-4">
+					<?php
+					require_once("conexion.php");
+					$query = "select * from tipoSangre";
+					$resultado=sqlsrv_query($conexion,$query);
+					?>
+					<select name="tipoS">
+					<?php
+					while ($row = sqlsrv_fetch_array($resultado, SQLSRV_FETCH_ASSOC))
+					{
+					?>
+					<option value="<?php echo $row['idTipoS']?>">
+					<?php echo $row['tipoS']; ?>
+					</option>
+					<?php
+					}
+					?>
+					</select>
+	  			</div>
+				</div>
+				<div class="form-group">
+	      <label for="obs" class="col-sm-3 control-label">Observaciones</label>
+	      <div class="col-sm-8">
+	      <textarea type="text" class="form-control" name="obs"><?php echo $obser ?></textarea>
+	      </div>
+	      </div>
+	      <?php
+	    } ?>
+
+	      <?php if($row_count>0){ ?>
+	      <div class="form-group">
+	      <label for="Nlic" class="col-sm-3 control-label">Nº Licencia</label>
+	      <div class="col-sm-8">
+	      <input type="text" class="form-control" name="Nlic" value="<?php echo $numeLicen ?>" >
+	      </div>
+				</div>
+				<div class="form-group">
+	      <label for="FechaVen" class="col-sm-3 control-label">Fecha Venc.</label>
+	      <div class="col-sm-8">
+	      <input type="text" class="form-control" name="FechaVen" value="<?php echo $fechaVenci ?>" >
+	      </div>
+				</div>
+				<div class="form-group">
+	      <label for="Descrip" class="col-sm-3 control-label">Descripción</label>
+	      <div class="col-sm-8">
+	      <input type="text" class="form-control" name="Descrip" value="<?php echo $descrip ?>">
+	      </div>
+	      </div>
+	      <?php } ?>
+
+			  <div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				<button type="submit" class="btn btn-primary" id="guardar_datos">Modificar datos</button>
+			  </div>
 		  </form>
 		</div>
 	  </div>

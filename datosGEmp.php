@@ -35,7 +35,7 @@ if($_SESSION['valid_user']!=true){
                   $ide=$_GET['id'];
                   ?>
                   <a href="#" class='btn btn-default'  rel="abrir" title="<?php echo $ide;?>"  data-toggle="modal" data-target="#nuevoEmpleado"><i class="glyphicon glyphicon-plus"></i>Agregar datos</a>
-                  <a href="#" class='btn btn-default'  rel="abrir" title="<?php echo $ide;?>"  data-toggle="modal" data-target="#nuevoEmpleado"><i class="glyphicon glyphicon-edit"></i>Modificar</a>
+                  <a href="#" class='btn btn-default'  rel="abrir3" title="<?php echo $ide;?>"  data-toggle="modal" data-target="#ModificarEmpleado"><i class="glyphicon glyphicon-edit"></i>Modificar</a>
                   <a href="#" class='btn btn-default'  rel="abrir2" title="<?php echo $ide;?>"  data-toggle="modal" data-target="#llamadasAten"><i class="glyphicon glyphicon-list-alt"></i>Llamadas atención</a>
 
             </div>
@@ -65,17 +65,52 @@ if($_SESSION['valid_user']!=true){
           $direccion=$row['Address'];
           $cargo=$row['Position'];
           $sueldo=$row['HourSalary'];
+          $estado=$row['Active'];
+        }
+
+        if($cumple==null){
+          $cumple1="";
+        }else{
+          $cumple1=date_format ( $cumple , 'd/m/y' );
+        }
+
+        if($sexo===1){
+          $sexo1="Femenino";
+        }else if($sexo===0){
+          $sexo1="Masculino";
+        }else if($sexo===null){
+          $sexo1="";
+        }
+
+        if($estado==1){
+          $estado1="Activo";
+        }else{
+          $estado1="Pasivo";
         }
 
         $query1 = "select * from empleado, tipoSangre, tipoEmpleado where IdUser='$ide'";
-        $resultado1=sqlsrv_query($conexion,$query1);
+        $params1 = array();
+        $options1 =  array( "Scrollable" => SQLSRV_CURSOR_KEYSET );
+        $resultado1=sqlsrv_query($conexion,$query1, $params1, $options1);
+        $row_count1 = sqlsrv_num_rows( $resultado1);
 
-        while ($row1 = sqlsrv_fetch_array($resultado1, SQLSRV_FETCH_ASSOC))
-        {
-          $tipoSan= $row1['tipoS'];
-          $fechaIng= $row1['fechaIng'];
-          $tipoEmpl= $row1['tipoE'];
+        if($row_count1>0){
+          while ($row1 = sqlsrv_fetch_array($resultado1, SQLSRV_FETCH_ASSOC))
+          {
+            $tipoSan= $row1['tipoS'];
+            $fechaIng= $row1['fechaIng'];
+            $tipoEmpl= $row1['tipoE'];
+            $jefeI= $row1['jefeInme'];
+            $obser= $row1['observaciones'];
+          }
+        }else{
+          $tipoSan= "";
+          $fechaIng= "";
+          $tipoEmpl= "";
+          $jefeI= "";
+          $obser= "";
         }
+
 
         $query2 = "select * from licencia where codigo='$ide'";
         $params = array();
@@ -97,6 +132,22 @@ if($_SESSION['valid_user']!=true){
         }
 
 
+        $query3 = "select * from estado where codigo='$ide'";
+        $params3 = array();
+        $options3=  array( "Scrollable" => SQLSRV_CURSOR_KEYSET );
+        $resultado3=sqlsrv_query($conexion,$query3, $params3, $options3);
+        $row_count3 = sqlsrv_num_rows( $resultado3);
+
+        if($row_count3>0){
+          while ($row3 = sqlsrv_fetch_array($resultado3, SQLSRV_FETCH_ASSOC))
+          {
+            $fechaS= $row3['fechaSal'];
+            $motiv= $row3['motivo'];
+          }
+        }else{
+          $fechaS= "";
+          $motiv= "";
+        }
 
         ?>
   			<input type="hidden" class="form-control" name="Id" value="<?php echo $ide ?>">
@@ -111,21 +162,13 @@ if($_SESSION['valid_user']!=true){
 			<div class="col-sm-2">
 			<input type="text" class="form-control" name="Identidad" value="<?php echo $identidad ?>" readonly="readonly">
 			</div>
-      <label for="TipoSan" class="col-sm-1 control-label">Tipo Sangre</label>
-			<div class="col-sm-2">
-			<input type="text" class="form-control" name="TipoSan" value="<?php echo $tipoSan ?>" readonly="readonly">
-			</div>
+      <label for="Sexo" class="col-sm-1 control-label">Sexo</label>
+      <div class="col-sm-2">
+      <input type="text" class="form-control" name="Sexo" value="<?php echo $sexo1 ?>" readonly="readonly">
+      </div>
       </div>
 
       <div class="form-group">
-      <label for="Sexo" class="col-sm-1 control-label">Sexo</label>
-      <div class="col-sm-2">
-      <input type="text" class="form-control" name="Sexo" value="<?php echo $sexo ?>" readonly="readonly">
-      </div>
-      <label for="FechaN" class="col-sm-1 control-label">Fecha Nac.</label>
-      <div class="col-sm-2">
-      <input type="text" class="form-control" name="FechaN" value="<?php echo date_format ( $cumple , 'd/m/y' ); ?>" readonly="readonly">
-      </div>
       <label for="Telefono" class="col-sm-1 control-label">Teléfono</label>
       <div class="col-sm-2">
       <input type="text" class="form-control" name="Telefono" value="<?php echo $telefono ?>" readonly="readonly">
@@ -134,45 +177,81 @@ if($_SESSION['valid_user']!=true){
       <div class="col-sm-2">
       <input type="text" class="form-control" name="Celular" value="<?php echo $celular ?>" readonly="readonly">
       </div>
+      <label for="FechaN" class="col-sm-2 control-label">Fecha Nacimiento</label>
+      <div class="col-sm-2">
+      <input type="text" class="form-control" name="FechaN" value="<?php echo $cumple1; ?>" readonly="readonly">
+      </div>
       </div>
 
 
       <div class="form-group">
-      <label for="Correo" class="col-sm-1 control-label">Correo</label>
-      <div class="col-sm-2">
-      <input type="text" class="form-control" name="Correo" value="<?php echo $correo ?>" readonly="readonly">
-      </div>
+        <label for="Correo" class="col-sm-1 control-label">Correo</label>
+        <div class="col-sm-3">
+        <input type="text" class="form-control" name="Correo" value="<?php echo $correo ?>" readonly="readonly">
+        </div>
       <label for="Direccion" class="col-sm-1 control-label">Dirección</label>
-      <div class="col-sm-8">
-      <input type="text" class="form-control" name="Direccion" value="<?php echo $direccion ?>" readonly="readonly">
+      <div class="col-sm-7">
+      <textarea type="text" class="form-control" name="Direccion" readonly="readonly"> <?php echo $direccion ?> </textarea>
       </div>
       </div>
 
       <div class="form-group">
-      <label for="Cargo" class="col-sm-1 control-label">Cargo</label>
-      <div class="col-sm-2">
-      <input type="text" class="form-control" name="Cargo" value="<?php echo $cargo ?>" readonly="readonly">
-      </div>
+        <label for="Cargo" class="col-sm-1 control-label">Cargo</label>
+        <div class="col-sm-2">
+        <input type="text" class="form-control" name="Cargo" value="<?php echo $cargo ?>" readonly="readonly">
+        </div>
       <label for="Sueldo" class="col-sm-1 control-label">Sueldo</label>
       <div class="col-sm-2">
       <input type="text" class="form-control" name="Sueldo" value="<?php echo $sueldo ?>" readonly="readonly">
       </div>
-      <label for="FechaIngr" class="col-sm-1 control-label">Fecha Ingreso</label>
+      <label for="JefeInm" class="col-sm-1 control-label">Estado</label>
       <div class="col-sm-2">
-      <input type="text" class="form-control" name="FechaIngr" value="<?php echo $fechaIng ?>" readonly="readonly">
-      </div>
-      <label for="TipoEmp" class="col-sm-1 control-label">Tipo Empleado</label>
-      <div class="col-sm-2">
-      <input type="text" class="form-control" name="TipoEmp" value="<?php echo $tipoEmpl ?>" readonly="readonly">
+      <input type="text" class="form-control" name="est" readonly="readonly" value="<?php echo $estado1 ?>">
       </div>
       </div>
 
+      <?php if($row_count3>0){ ?>
       <div class="form-group">
+        <label for="fechaS" class="col-sm-1 control-label">Fecha Salida</label>
+        <div class="col-sm-3">
+        <input type="text" class="form-control" name="fechaS" value="<?php echo $fechaS ?>" readonly="readonly">
+        </div>
+      <label for="Moti" class="col-sm-1 control-label">Motivo</label>
+      <div class="col-sm-7">
+      <textarea type="text" class="form-control" name="Moti" readonly="readonly"> <?php echo $motiv ?> </textarea>
+      </div>
+      </div>
+      <?php } ?>
+
+      <?php
+      if($row_count1>0){ ?>
+      <div class="form-group">
+        <label for="TipoEmp" class="col-sm-1 control-label">Tipo Empleado</label>
+        <div class="col-sm-2">
+        <input type="text" class="form-control" name="TipoEmp" value="<?php echo $tipoEmpl ?>" readonly="readonly">
+        </div>
+        <label for="FechaIngr" class="col-sm-1 control-label">Fecha Ingreso</label>
+        <div class="col-sm-2">
+        <input type="text" class="form-control" name="FechaIngr" value="<?php echo $fechaIng ?>" readonly="readonly">
+        </div>
       <label for="JefeInm" class="col-sm-1 control-label">Jefe Inmediato</label>
-			<div class="col-sm-5">
-			<input type="text" class="form-control" name="JefeInm" readonly="readonly">
+			<div class="col-sm-3">
+			<input type="text" class="form-control" name="JefeInm" readonly="readonly" value="<?php echo $jefeI ?>">
 			</div>
       </div>
+
+      <div class="form-group">
+        <label for="TipoSan" class="col-sm-1 control-label">Tipo Sangre</label>
+  			<div class="col-sm-2">
+  			<input type="text" class="form-control" name="TipoSan" value="<?php echo $tipoSan ?>" readonly="readonly">
+  			</div>
+      <label for="obs" class="col-sm-2 control-label">Observaciones</label>
+      <div class="col-sm-7">
+      <textarea type="text" class="form-control" name="obs" readonly="readonly"><?php echo $obser ?></textarea>
+      </div>
+      </div>
+      <?php
+    } ?>
 
       <?php if($row_count>0){ ?>
       <div class="form-group">
@@ -195,13 +274,13 @@ if($_SESSION['valid_user']!=true){
       </div>
       <?php
 
-      $query3 = "select * from llamadasAten where codigo='$ide'";
-      $params3 = array();
-      $options3 =  array( "Scrollable" => SQLSRV_CURSOR_KEYSET );
-      $resultado3=sqlsrv_query($conexion,$query3, $params3, $options3);
-      $row_count3 = sqlsrv_num_rows( $resultado3);
+      $query4 = "select * from llamadasAten where codigo='$ide'";
+      $params4 = array();
+      $options4 =  array( "Scrollable" => SQLSRV_CURSOR_KEYSET );
+      $resultado4=sqlsrv_query($conexion,$query4, $params4, $options4);
+      $row_count4 = sqlsrv_num_rows( $resultado4);
 
-      if ($row_count3>0){
+      if ($row_count4>0){
 
   			?>
   			<div class="table-responsive">
@@ -214,10 +293,10 @@ if($_SESSION['valid_user']!=true){
 
   				</tr>
   				<?php
-  				while ($row3=sqlsrv_fetch_array($resultado3, SQLSRV_FETCH_ASSOC)){
-  						$idLlam=$row3['idLlam'];
-  						$descripcion=$row3['descripcion'];
-  						$fecha=$row3['fecha'];
+  				while ($row4=sqlsrv_fetch_array($resultado4, SQLSRV_FETCH_ASSOC)){
+  						$idLlam=$row4['idLlam'];
+  						$descripcion=$row4['descripcion'];
+  						$fecha=$row4['fecha'];
   										?>
 
   					<input type="hidden" value="<?php echo $descripcion;?>" id="IdUser<?php echo $idLlam;?>">
@@ -250,6 +329,7 @@ if($_SESSION['valid_user']!=true){
 			<?php
 				include("modal/registro_empleados.php");
         include("modal/llamadasEmpl.php");
+        include("modal/editar_clientes.php");
 			?>
       <div id="resultados"></div><!-- Carga los datos ajax -->
       <div class='outer_div'></div><!-- Carga los datos ajax -->

@@ -27,9 +27,6 @@ if($_SESSION['valid_user']!=true){
     <div class="container">
 	<div class="panel panel-info">
 		<div class="panel-heading">
-			<div class="btn-group pull-right">
-			<button type='button' class="btn btn-info" data-toggle="modal" data-target="#nuevoEmpleado"><span class="glyphicon glyphicon-plus" ></span> Nuevo Empleado</button>
-			</div>
 			<div>
 				<form class="form-horizontal" role="form" id="datos_cotizacion">
 
@@ -59,7 +56,6 @@ if($_SESSION['valid_user']!=true){
 
 			<?php
 				include("modal/registro_empleados.php");
-				include("modal/editar_clientes.php");
 			?>
 
 				<div id="resultados"></div><!-- Carga los datos ajax -->

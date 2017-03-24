@@ -1,28 +1,19 @@
 <?php
-	if (empty($_POST['codigo'])) {
+require_once ("../conexion.php");
+	if (empty($_POST['fecha_ing'])) {
            $errors[] = "Nombre vacío";
-        } else if (!empty($_POST['codigo'])){
-					/* Connect To Database*/
-					require_once ("../conexion.php");
+        } else if (!empty($_POST['fecha_ing'])){
 
 					$cod=$_POST["codigo"];
-					$sueldo=$_POST["sueldo"];
 					$fecha=$_POST["fecha_ing"];
 					$obs=$_POST["obs"];
-
-					$estado=$_POST["estado"];
+					$jefe=$_POST["jefe"];
 					$tipoS=$_POST["tipoS"];
 					$tipoE=$_POST["tipoE"];
 
-					if (empty($_POST['jefe'])) {
-				          $jefe=1;
-				        } else{
-									$jefe=$_POST["jefe"];
-								}
 
-
-					$sql="INSERT INTO empleado(IdUser,sueldo,fechaIng,observaciones,jefeInme,idEstado,idTipoS,idTipoE)
-						VALUES ('$cod','$sueldo','$fecha','$obs','$jefe','$estado','$tipoS','$tipoE')";
+					$sql="INSERT INTO empleado(IdUser,fechaIng,observaciones,jefeInme,idTipoS,idTipoE)
+						VALUES ('$cod','$fecha','$obs','$jefe','$tipoS','$tipoE')";
 						$recurso=sqlsrv_prepare($conexion,$sql);
 
 
@@ -39,37 +30,58 @@
 							echo"Datos ya existen";
 						}
 
-		} else {
-			$errors []= "Error desconocido.";
 		}
 
-		if (isset($errors)){
+			if (!empty($_POST['licen'])) {
+					$cod=$_POST["codigo"];
+					 $numLic=$_POST["licen"];
+					 $fechaVen=$_POST["fechaVenc"];
+					 $tipoLic=$_POST["des"];
 
-			?>
-			<div class="alert alert-danger" role="alert">
-				<button type="button" class="close" data-dismiss="alert">&times;</button>
-					<strong>Error!</strong>
-					<?php
-						foreach ($errors as $error) {
-								echo $error;
-							}
-						?>
-			</div>
-			<?php
-			}
-			if (isset($messages)){
+					 $sql2	="INSERT INTO licencia(numLicencia,fechaVenc,descripcion,codigo)
+						VALUES ('$numLic','$fechaVen','$tipoLic','$cod')";
+						$recurso2=sqlsrv_prepare($conexion,$sql2);
+						if( $recurso2 === false) {
+			    	die( print_r( sqlsrv_errors(), true) );
+						}
 
-				?>
-				<div class="alert alert-success" role="alert">
-						<button type="button" class="close" data-dismiss="alert">&times;</button>
-						<strong>¡Bien hecho!</strong>
-						<?php
-							foreach ($messages as $message) {
-									echo $message;
-								}
-							?>
-				</div>
-				<?php
-			}
+
+						if(sqlsrv_execute($recurso2)){
+							echo"Agregado correctamente";
+						}
+						else
+						{
+							echo"Datos ya existen";
+						}
+
+						}
+
+							$estado=$_POST["estad"];
+							$codi=$_POST["codigo"];
+							echo $codi;
+						 if($estado==0){
+							 $estado1="Pasivo";
+							 $Motivo=$_POST["motivo"];
+							 $FechSalida=$_POST["FechSalida"];
+							 $sql3	="INSERT INTO estado(estado,fechaSal,motivo,codigo)
+								 VALUES ('$estado1','$FechSalida','$Motivo','$codi')";
+								 $recurso3=sqlsrv_prepare($conexion,$sql3);
+
+								 if( $recurso3 === false) {
+		 			    	die( print_r( sqlsrv_errors(), true) );
+		 						}
+
+								 if(sqlsrv_execute($recurso3)){
+									 echo"Agregado correctamente";
+								 }
+								 else
+								 {
+									 echo"Datos ya existen";
+									 die( print_r( sqlsrv_errors(), true) );
+								 }
+						 }
+
+
+
 
 ?>
