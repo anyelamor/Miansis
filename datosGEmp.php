@@ -76,9 +76,9 @@ if($_SESSION['valid_user']!=true){
 
         if($sexo===1){
           $sexo1="Femenino";
-        }else if($sexo===0){
+        }elseif($sexo===0){
           $sexo1="Masculino";
-        }else if($sexo===null){
+        }elseif($sexo===null){
           $sexo1="";
         }
 
@@ -88,7 +88,7 @@ if($_SESSION['valid_user']!=true){
           $estado1="Pasivo";
         }
 
-        $query1 = "select * from empleado, tipoSangre, tipoEmpleado where IdUser='$ide'";
+        $query1 = "select * from empleado where empleado.IdUser='$ide'";
         $params1 = array();
         $options1 =  array( "Scrollable" => SQLSRV_CURSOR_KEYSET );
         $resultado1=sqlsrv_query($conexion,$query1, $params1, $options1);
@@ -97,9 +97,9 @@ if($_SESSION['valid_user']!=true){
         if($row_count1>0){
           while ($row1 = sqlsrv_fetch_array($resultado1, SQLSRV_FETCH_ASSOC))
           {
-            $tipoSan= $row1['tipoS'];
+            $tipoSan= $row1['idTipoS'];
             $fechaIng= $row1['fechaIng'];
-            $tipoEmpl= $row1['tipoE'];
+            $tipoEmpl= $row1['idTipoE'];
             $jefeI= $row1['jefeInme'];
             $obser= $row1['observaciones'];
           }
@@ -111,13 +111,35 @@ if($_SESSION['valid_user']!=true){
           $obser= "";
         }
 
+        if($tipoSan==1){
+          $tipoSan2="O-";
+        }elseif($tipoSan==2){
+          $tipoSan2="O+";
+        }elseif($tipoSan==3){
+          $tipoSan2="A-";
+        }elseif($tipoSan==4){
+          $tipoSan2="A+";
+        }elseif($tipoSan==5){
+          $tipoSan2="B-";
+        }elseif($tipoSan=="B+"){
+          $tipoSan2="B+";
+        }elseif($tipoSan==7){
+          $tipoSan2="AB-";
+        }elseif($tipoSan==8){
+          $tipoSan2="AB+";
+        }
+        if($tipoEmpl==1){
+          $tipoEmpl2="Permanente";
+        }else if($tipoEmpl==2){
+          $tipoEmpl2="Contrato";
+        }
+
 
         $query2 = "select * from licencia where codigo='$ide'";
         $params = array();
         $options =  array( "Scrollable" => SQLSRV_CURSOR_KEYSET );
         $resultado2=sqlsrv_query($conexion,$query2, $params, $options);
         $row_count = sqlsrv_num_rows( $resultado2);
-
         if($row_count>0){
           while ($row2 = sqlsrv_fetch_array($resultado2, SQLSRV_FETCH_ASSOC))
           {
@@ -137,7 +159,6 @@ if($_SESSION['valid_user']!=true){
         $options3=  array( "Scrollable" => SQLSRV_CURSOR_KEYSET );
         $resultado3=sqlsrv_query($conexion,$query3, $params3, $options3);
         $row_count3 = sqlsrv_num_rows( $resultado3);
-
         if($row_count3>0){
           while ($row3 = sqlsrv_fetch_array($resultado3, SQLSRV_FETCH_ASSOC))
           {
@@ -228,8 +249,8 @@ if($_SESSION['valid_user']!=true){
       <div class="form-group">
         <label for="TipoEmp" class="col-sm-1 control-label">Tipo Empleado</label>
         <div class="col-sm-2">
-        <input type="text" class="form-control" name="TipoEmp" value="<?php echo $tipoEmpl ?>" readonly="readonly">
-        </div>
+        <input type="text" class="form-control" name="TipoEmp" value="<?php echo $tipoEmpl2 ?>" readonly="readonly">
+      </div>
         <label for="FechaIngr" class="col-sm-1 control-label">Fecha Ingreso</label>
         <div class="col-sm-2">
         <input type="text" class="form-control" name="FechaIngr" value="<?php echo $fechaIng ?>" readonly="readonly">
@@ -243,7 +264,7 @@ if($_SESSION['valid_user']!=true){
       <div class="form-group">
         <label for="TipoSan" class="col-sm-1 control-label">Tipo Sangre</label>
   			<div class="col-sm-2">
-  			<input type="text" class="form-control" name="TipoSan" value="<?php echo $tipoSan ?>" readonly="readonly">
+  			<input type="text" class="form-control" name="TipoSan" value="<?php echo $tipoSan2 ?>" readonly="readonly">
   			</div>
       <label for="obs" class="col-sm-2 control-label">Observaciones</label>
       <div class="col-sm-7">
@@ -329,7 +350,7 @@ if($_SESSION['valid_user']!=true){
 			<?php
 				include("modal/registro_empleados.php");
         include("modal/llamadasEmpl.php");
-        include("modal/editar_clientes.php");
+        include("modal/editar_empleados.php");
 			?>
       <div id="resultados"></div><!-- Carga los datos ajax -->
       <div class='outer_div'></div><!-- Carga los datos ajax -->
@@ -343,5 +364,6 @@ if($_SESSION['valid_user']!=true){
 	include("footer.php");
 	?>
 	<script type="text/javascript" src="js/empleados2.js"></script>
+  <script type="text/javascript" src="js/empleados3.js"></script>
   </body>
 </html>

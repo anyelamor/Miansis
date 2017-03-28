@@ -25,18 +25,11 @@
 			  </div>
 
 				<?php
-				$query5 = "select * from [User] where IdUser='$ide'";
+				$query5 = "select * from estado where codigo='$ide'";
 				$params5 = array();
 				$options5 =  array( "Scrollable" => SQLSRV_CURSOR_KEYSET );
 				$resultado5=sqlsrv_query($conexion,$query5, $params5, $options5);
 				$row_count5 = sqlsrv_num_rows( $resultado5);
-
-				if($row_count5>0){
-					while ($row5 = sqlsrv_fetch_array($resultado2, SQLSRV_FETCH_ASSOC))
-					{
-						$estado=$row5['Active'];
-					}
-				}
 
 				if($estado==0 && $row_count5==0){
 					?>
@@ -153,7 +146,15 @@
 					<button type="submit" class="btn btn-primary" id="guardar_datos" disabled>Guardar datos</button>
 				  </div>
 					<?php
-				}else{
+				}else if($row_count5>0) {
+					?>
+					<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+					<button type="submit" class="btn btn-primary" id="guardar_datos" disabled>Guardar datos</button>
+				  </div>
+					<?php
+				}
+					else{
 					?>
 					<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
