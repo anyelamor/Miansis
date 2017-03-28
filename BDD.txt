@@ -1,0 +1,88 @@
+CREATE TABLE tipoSangre
+	(
+		idTipoS int IDENTITY(1,1) PRIMARY KEY,
+		tipoS varchar(30) NOT NULL
+	)
+INSERT INTO tipoSangre(tipoS) VALUES
+('O-');
+INSERT INTO tipoSangre(tipoS) VALUES
+('O+');
+INSERT INTO tipoSangre(tipoS) VALUES
+('A-');
+INSERT INTO tipoSangre(tipoS) VALUES
+('A+');
+INSERT INTO tipoSangre(tipoS) VALUES
+('B-');
+INSERT INTO tipoSangre(tipoS) VALUES
+('B+');
+INSERT INTO tipoSangre(tipoS) VALUES
+('AB-);
+INSERT INTO tipoSangre(tipoS) VALUES
+('AB+');
+
+CREATE TABLE tipoEmpleado
+	(
+		idTipoE int IDENTITY(1,1) PRIMARY KEY,
+		tipoE varchar(30) NOT NULL
+	)
+INSERT INTO tipoEmpleado(tipoE) VALUES
+('Permanente');
+INSERT INTO tipoEmpleado(tipoE) VALUES
+('Contrato');
+
+CREATE TABLE empleado
+	(
+		IdUser int PRIMARY KEY REFERENCES [User]([IdUser]),
+		fechaIng varchar(20),
+		observaciones varchar(60),
+		jefeInme varchar(60),
+		idTipoS int FOREIGN KEY REFERENCES tipoSangre(idTipoS),
+		idTipoE int FOREIGN KEY REFERENCES tipoEmpleado(idTipoE)
+	)
+
+CREATE TABLE estado
+	(
+		idEstado int IDENTITY(1,1) PRIMARY KEY,
+		estado varchar(30) NOT NULL,
+		fechaSal varchar(20),
+		motivo varchar(100),
+		codigo int FOREIGN KEY REFERENCES [User]([IdUser])
+	)
+
+CREATE TABLE licencia
+	(
+		numLicencia varchar(30) NOT NULL PRIMARY KEY,
+		fechaVenc varchar(20) NOT NULL,
+		descripcion varchar(20) NOT NULL,
+		codigo int FOREIGN KEY REFERENCES [User]([IdUser])
+	)
+
+CREATE TABLE llamadasAten
+	(
+		idLlam int IDENTITY(1,1) PRIMARY KEY,
+		descripcion varchar(255) NOT NULL,
+		fecha varchar(20),
+		codigo int FOREIGN KEY REFERENCES [User]([IdUser])
+	)
+
+
+CREATE TABLE cursos
+	(
+		idCursos int IDENTITY(1,1) PRIMARY KEY,
+		descripcion varchar(55) NOT NULL,
+		codigo int FOREIGN KEY REFERENCES [User]([IdUser])
+	)
+
+
+CREATE TABLE Usuario(
+   userid int IDENTITY(1,1) PRIMARY KEY,
+   firstname varchar(20) NOT NULL,
+   lastname varchar(20) NOT NULL,
+   username varchar(64) NOT NULL,
+   user_password_hash varchar(255) NOT NULL,
+   user_email varchar(64) NOT NULL,
+   date_added datetime NOT NULL
+)
+
+INSERT INTO Usuario(firstname, lastname , username,user_password_hash, user_email,date_added) VALUES
+('Anyela', 'Orellana', 'admin', 'admin', 'admin@jcr.com', '2017-02-21 15:06:00');
