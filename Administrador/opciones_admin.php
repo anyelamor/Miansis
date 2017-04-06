@@ -12,7 +12,7 @@
 
   <div  class="bot">
 
-    <a href="admin_empleado.php"><img src="../img/empleados.png" height="180px" width="550px" ></a> &nbsp;
+    <a href="control_empleado.php"><img src="../img/empleados.png" height="180px" width="550px" ></a> &nbsp;
     <a href="control_usuario.php"><img src="../img/usuarios.png" height="180px" width="550px" ></a>
       </div>
 </div>

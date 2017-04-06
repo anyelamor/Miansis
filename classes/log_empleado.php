@@ -1,15 +1,15 @@
 <?php
 session_start();
 require_once("../conexion.php");
-require_once("../Administrador/administrador.php");
+require_once("../Usuario/usuario.php");
 if( $conexion == false){
     echo "Error in connection.\n";
     die( print_r( sqlsrv_errors(), true));
 }
 $username = $_POST['nombre'];
-$password  = $_POST['pass'];
 
-$tsql = "SELECT * FROM Usuario WHERE username='$username' AND user_password_hash='$password'";
+
+$tsql = "SELECT * FROM User WHERE IdentificationNumber='$username'";
 //$tsql="SELECT * FROM Usuario WHERE username=".$_POST["user_name"]."' AND user_password_hash='".$_POST['user_password']."'";
 
 $stmt = sqlsrv_query( $conexion, $tsql);
@@ -26,13 +26,13 @@ $stmt = sqlsrv_query( $conexion, $tsql);
 }*/
 $row=sqlsrv_fetch_array($stmt);
 
-  if ($row['username']==$_POST['nombre'] && $row['user_password_hash']==$_POST['pass']) {
+  if ($row['IdentificationNumber']==$_POST['nombre']) {
     $_SESSION['valid_user'] = true;
     $_SESSION['nombre_usuario'] = $username;
-    header('Location: ../Administrador/opciones_admin.php');
+    header('Location: ../Usuario/opciones_empleado.php');
 
 } else {
-    header('Location: ../Administrador/administrador.php');
+    header('Location: ../Usuario/usuario.php');
     die();
 }
 

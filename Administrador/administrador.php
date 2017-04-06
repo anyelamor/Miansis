@@ -19,7 +19,7 @@
 </div>
            <div class="alv">
 
-            <form method="post" accept-charset="utf-8" action="classes/log_action.php" name="loginform" autocomplete="off" role="form" class="form-signin">
+            <form method="post" accept-charset="utf-8" action="../classes/log_action.php" name="loginform" autocomplete="off" role="form" class="form-signin">
 
 					      <span id="reauth-email" class="reauth-email"></span>
                 <input class="form-control" placeholder="Usuario" name="nombre" type="text" autofocus="" required >
