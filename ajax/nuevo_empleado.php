@@ -58,7 +58,6 @@ require_once ("../conexion.php");
 
 							$estado=$_POST["estad"];
 							$codi=$_POST["codigo"];
-							echo $codi;
 						 if($estado==0){
 							 $estado1="Pasivo";
 							 $Motivo=$_POST["motivo"];

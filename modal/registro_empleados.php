@@ -3,6 +3,8 @@
 		{
 	?>
 	<!-- Modal -->
+
+
 	<div class="modal fade" id="nuevoEmpleado" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	  <div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -40,20 +42,24 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label id="FechSalidaL" for="nombre" class="col-sm-3 control-label">Fecha Salida</label>
+					<label id="FechSalida" for="nombre" class="col-sm-3 control-label">Fecha Salida</label>
 					<div class="col-sm-8">
-					  <input type="text" class="form-control" id="FechSalida" name="FechSalida" >
+						<div class="input-group">
+							<input type="text" name="FechSalida" id="idFecha3" readonly="readonly" class="form-control clsDatePicker" required> <span class="input-group-addon"><i id="fechaimg3" class="glyphicon glyphicon-calendar"></i></span>
+						</div>
 					</div>
 				  </div>
 					<?php
-				}else if($estado==1){
+				}elseif($estado==1){
 					?>
 					<?php
 		      if($row_count1<1){ ?>
 					<div class="form-group">
-					<label for="nombre" class="col-sm-3 control-label">Fecha ingreso</label>
-					<div class="col-sm-8">
-					  <input type="text" class="form-control" id="fecha_ing" name="fecha_ing" >
+					<label for="fecha_ing" class="col-sm-3 control-label">Fecha de ingreso:</label>
+					<div class="col-md-8">
+					<div class="input-group">
+						<input type="text" name="fecha_ing" id="idFecha1" required readonly="readonly" class="form-control clsDatePicker"> <span class="input-group-addon"><i id="fechaimg1" class="glyphicon glyphicon-calendar"></i></span>
+					</div>
 					</div>
 				  </div>
 					<div class="form-group">
@@ -120,13 +126,15 @@
 					<div class="form-group">
 					<label for="nombre" class="col-sm-3 control-label">Nº Licencia</label>
 					<div class="col-sm-8">
-					  <input type="text" class="form-control" id="licen" name="licen" >
+					  <input type="text" class="form-control" id="licen" name="licen">
 					</div>
 				  </div>
 					<div class="form-group">
-					<label for="nombre" class="col-sm-3 control-label">Fecha Vencimiento</label>
+					<label for="fechaVenc" class="col-sm-3 control-label">Fecha Vencimiento</label>
 					<div class="col-sm-8">
-					  <input type="text" class="form-control" id="fechaVenc" name="fechaVenc" >
+						<div class="input-group">
+							<input type="text" name="fechaVenc" id="idFecha2" readonly="readonly" class="form-control clsDatePicker" required> <span class="input-group-addon"><i id="fechaimg2" class="glyphicon glyphicon-calendar"></i></span>
+						</div>
 					</div>
 				  </div>
 					<div class="form-group">
@@ -148,10 +156,23 @@
 					<?php
 				}else if($row_count5>0) {
 					?>
+					<div class="form-group">
+					<label class="col-sm-6 control-label">Ya han sido registrados estos datos!</label>
+				  </div>
 					<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
 					<button type="submit" class="btn btn-primary" id="guardar_datos" disabled>Guardar datos</button>
 				  </div>
+					<?php
+				}else if($row_count1>0 && $row_count>0){
+					?>
+					<div class="form-group">
+					<label class="col-sm-6 control-label">Ya han sido registrados estos datos!</label>
+				  </div>
+					<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+					<button type="submit" class="btn btn-primary" id="guardar_datos" disabled>Guardar datos</button>
+					</div>
 					<?php
 				}
 					else{
@@ -171,3 +192,32 @@
 	<?php
 		}
 	?>
+	<script type="text/javascript">
+	$jQuery_1_9_2('#idFecha1').datepicker({
+	dateFormat: 'dd-mm-yy',
+	changeMonth: true,
+	changeYear: true,
+	altField: "#fechaimg1",
+	altFormat: "yy-mm-dd"
+	});
+	</script>
+
+	<script type="text/javascript">
+	$jQuery_1_9_2('#idFecha2').datepicker({
+	dateFormat: 'dd-mm-yy',
+	changeMonth: true,
+	changeYear: true,
+	altField: "#fechaimg2",
+	altFormat: "yy-mm-dd"
+	});
+	</script>
+
+	<script type="text/javascript">
+	$jQuery_1_9_2('#idFecha3').datepicker({
+	dateFormat: 'dd-mm-yy',
+	changeMonth: true,
+	changeYear: true,
+	altField: "#fechaimg3",
+	altFormat: "yy-mm-dd"
+	});
+	</script>
