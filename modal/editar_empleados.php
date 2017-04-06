@@ -28,7 +28,9 @@
 	      <div class="form-group">
 	        <label for="fechaS" class="col-sm-3 control-label">Fecha Salida</label>
 	        <div class="col-sm-8">
-	        <input type="text" class="form-control" name="fechaSMod" value="<?php echo $fechaS ?>">
+						<div class="input-group">
+	            <input type="text" name="fechaSMod" id="idFecha5" value="<?php echo $fechaS ?>" readonly="readonly" class="form-control clsDatePicker" required> <span class="input-group-addon"><i id="fechaimg5" class="glyphicon glyphicon-calendar"></i></span>
+	          </div>
 	        </div>
 
 				</div>
@@ -83,7 +85,9 @@
 				<div class="form-group">
 	        <label for="FechaIngr" class="col-sm-3 control-label">Fecha Ingreso</label>
 	        <div class="col-sm-8">
-	        <input type="text" class="form-control" name="FechaIngrMod" value="<?php echo $fechaIng ?>">
+						<div class="input-group">
+	            <input type="text" name="FechaIngrMod" id="idFecha6" value="<?php echo $fechaIng ?>" readonly="readonly" class="form-control clsDatePicker" required> <span class="input-group-addon"><i id="fechaimg6" class="glyphicon glyphicon-calendar"></i></span>
+	          </div>
 	        </div>
 				</div>
 				<div class="form-group">
@@ -145,7 +149,9 @@
 				<div class="form-group">
 	      <label for="FechaVen" class="col-sm-3 control-label">Fecha Venc.</label>
 	      <div class="col-sm-8">
-	      <input type="text" class="form-control" name="FechaVenMod" value="<?php echo $fechaVenci ?>" >
+					<div class="input-group">
+						<input type="text" name="FechaVenMod" id="idFecha7" value="<?php echo $fechaVenci ?>" readonly="readonly" class="form-control clsDatePicker" required> <span class="input-group-addon"><i id="fechaimg7" class="glyphicon glyphicon-calendar"></i></span>
+					</div>
 	      </div>
 				</div>
 				<div class="form-group">
@@ -179,3 +185,33 @@
 	<?php
 		}
 	?>
+
+	<script type="text/javascript">
+	$jQuery_1_9_2('#idFecha5').datepicker({
+	dateFormat: 'dd-mm-yy',
+	changeMonth: true,
+	changeYear: true,
+	altField: "#fechaimg5",
+	altFormat: "yy-mm-dd"
+	});
+	</script>
+
+	<script type="text/javascript">
+	$jQuery_1_9_2('#idFecha6').datepicker({
+	dateFormat: 'dd-mm-yy',
+	changeMonth: true,
+	changeYear: true,
+	altField: "#fechaimg6",
+	altFormat: "yy-mm-dd"
+	});
+	</script>
+
+	<script type="text/javascript">
+	$jQuery_1_9_2('#idFecha7').datepicker({
+	dateFormat: 'dd-mm-yy',
+	changeMonth: true,
+	changeYear: true,
+	altField: "#fechaimg7",
+	altFormat: "yy-mm-dd"
+	});
+	</script>

@@ -15,7 +15,16 @@ if($_SESSION['valid_user']!=true){
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <?php include("head.php");?>
+<?php include("head.php");?>
+<!--crear un calendario-->
+<link rel="stylesheet" type="text/css" href="css/jquery-ui-1.7.2.custom.css" />
+<link rel="stylesheet" href="css/calendario.css">
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+var $jQuery_1_9_2 = jQuery.noConflict();
+window.jQuery= $jQuery_1_9_2;
+</script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
   </head>
   <body>
 	<?php
@@ -290,9 +299,21 @@ if($_SESSION['valid_user']!=true){
       </div>
       </div>
       <?php } ?>
-      <div>
-        <h4>Llamadas de atención</h4>
-      </div>
+      <div class="panel panel-info">
+      <div class="panel-heading">
+  			<div>
+  							<div class="form-group row ">
+  										<div class="col-md-4">
+  											<h4>Llamadas de atención</h4>
+  								</div>
+  							</div>
+  			</div>
+
+</div>
+
+
+
+
       <?php
 
       $query4 = "select * from llamadasAten where codigo='$ide'";
@@ -342,7 +363,7 @@ if($_SESSION['valid_user']!=true){
   			<?php
   		}
 ?>
-
+</div>
 
 
 

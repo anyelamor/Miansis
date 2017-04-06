@@ -18,23 +18,40 @@
     <input type="hidden" class="form-control" id="codigo2" name="codigo2" >
     </div>
     </div>
-
-    <div class="form-group">
-    <label for="desc" class="col-sm-3 control-label">Descripción</label>
-    <div class="col-sm-8">
-      <input type="text" class="form-control" id="desc" name="desc" >
-    </div>
-    </div>
+    <?php
+    if($estado==1){
+      ?>
       <div class="form-group">
-      <label for="fecha" class="col-sm-3 control-label">Fecha</label>
+      <label for="desc" class="col-sm-3 control-label">Descripción</label>
       <div class="col-sm-8">
-        <input type="text" class="form-control" id="fecha" name="fecha" >
+        <input type="text" class="form-control" id="desc" name="desc" >
       </div>
       </div>
-    <div class="modal-footer">
-    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-    <button type="submit" class="btn btn-primary" id="guardar_datos2">Guardar datos</button>
-    </div>
+        <div class="form-group">
+        <label for="fecha" class="col-sm-3 control-label">Fecha</label>
+        <div class="col-sm-8">
+          <div class="input-group">
+            <input type="text" name="fecha" id="idFecha4" readonly="readonly" class="form-control clsDatePicker" required> <span class="input-group-addon"><i id="fechaimg4" class="glyphicon glyphicon-calendar"></i></span>
+          </div>
+        </div>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="submit" class="btn btn-primary" id="guardar_datos2">Guardar datos</button>
+        </div>
+      <?php
+    }elseif($estado==0){
+      ?>
+      <div class="form-group">
+      <label class="col-sm-6 control-label">No se puede registrar estos datos!</label>
+      </div>
+      <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      <button type="submit" class="btn btn-primary" id="guardar_datos2" disabled="">Guardar datos</button>
+      </div>
+      <?php
+    }
+    ?>
     </form>
      </div>
   </div>
@@ -43,3 +60,13 @@
 <?php
   }
 ?>
+
+<script type="text/javascript">
+$jQuery_1_9_2('#idFecha4').datepicker({
+dateFormat: 'dd-mm-yy',
+changeMonth: true,
+changeYear: true,
+altField: "#fechaimg4",
+altFormat: "yy-mm-dd"
+});
+</script>

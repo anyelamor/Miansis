@@ -41,16 +41,19 @@ if($_SESSION['valid_user']!=true){
 									<span id="loader"></span>
 								</div>
 							</div>
-
-
-
-
 				</form>
 			</div>
 
 
 		</div>
 		<div class="panel-body">
+
+      <?
+$results = array();
+echo exec( "C:\BioTrack Software\BioAdmin\BioAdminInterface.exe", $results);
+var_dump( $results );
+?>
+<a href="C:\BioTrack Software\BioAdmin\BioAdminInterface.exe">dd </a>
 
 
 
