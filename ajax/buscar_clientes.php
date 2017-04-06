@@ -3,40 +3,7 @@
 	require_once("../conexion.php");
 
 	$action = (isset($_REQUEST['action'])&& $_REQUEST['action'] !=NULL)?$_REQUEST['action']:'';
-	if (isset($_GET['codigo'])){
-		$id_cliente=intval($_GET['codigo']);
-		$query=mysqli_query($con, "select * from empleado where codEmpleado='".$cod."'");
-		$count=mysqli_num_rows($query);
-		if ($count==0){
-			if ($delete1=mysqli_query($con,"DELETE FROM empleado WHERE codEmpleado='".$cod."'")){
-			?>
-			<div class="alert alert-success alert-dismissible" role="alert">
-			  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			  <strong>Aviso!</strong> Datos eliminados exitosamente.
-			</div>
-			<?php
-		}else {
-			?>
-			<div class="alert alert-danger alert-dismissible" role="alert">
-			  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			  <strong>Error!</strong> Lo siento algo ha salido mal intenta nuevamente.
-			</div>
-			<?php
 
-		}
-
-		} else {
-			?>
-			<div class="alert alert-danger alert-dismissible" role="alert">
-			  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			  <strong>Error!</strong> No se pudo eliminar éste  cliente. Existen facturas vinculadas a éste producto.
-			</div>
-			<?php
-		}
-
-
-
-	}
 	if($action == 'ajax'){
 		// escaping, additionally removing everything that could be (html/javascript-) code
          $q = $_REQUEST['q'];
@@ -119,7 +86,7 @@
 
 					<td >
 						<span class="pull-right">
-						<a href="datosGEmp.php?id=<?php echo $cod; ?>" class='btn btn-default' ><i class="glyphicon glyphicon-eye-open"></i></a>
+						<a title="VER DATOS" href="datosGEmp.php?id=<?php echo $cod; ?>" class='btn btn-default' ><i class="glyphicon glyphicon-eye-open"></i></a>
 					</span></td>
 					</tr>
 					<?php

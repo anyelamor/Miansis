@@ -340,9 +340,7 @@ window.jQuery= $jQuery_1_9_2;
   						$descripcion=$row4['descripcion'];
   						$fecha=$row4['fecha'];
   										?>
-
-  					<input type="hidden" value="<?php echo $descripcion;?>" id="IdUser<?php echo $idLlam;?>">
-  					<input type="hidden" value="<?php echo $fecha;?>" id="id<?php echo $idLlam;?>">
+  					<input type="hidden" name="ide" value="<?php echo $idLlam;?>" id="id<?php echo $idLlam;?>">
 
   					<tr>
 
@@ -352,7 +350,7 @@ window.jQuery= $jQuery_1_9_2;
 
   					<td >
   						<span class="pull-right">
-  						<a href="datosGEmp.php?id=<?php echo $idLlam; ?>" class='btn btn-default' ><i class="glyphicon glyphicon-eye-open"></i></a>
+  						<a title="ELIMINAR" onClick="confirmation(<?php echo $idLlam; ?>)" class='btn btn-default' ><i class="glyphicon glyphicon-remove"></i></a>
   					</span></td>
   					</tr>
   					<?php
@@ -384,6 +382,13 @@ window.jQuery= $jQuery_1_9_2;
 	<?php
 	include("footer.php");
 	?>
+  <script>
+  function confirmation(idreg){
+if(confirm('Esta seguro que desea eliminar el registro?')){
+location.href='ajax/eliminar_llamadas.php?idE=<?php echo $ide; ?>&id='+idreg;
+}
+}
+  </script>
 	<script type="text/javascript" src="js/empleados2.js"></script>
   <script type="text/javascript" src="js/empleados3.js"></script>
   </body>
