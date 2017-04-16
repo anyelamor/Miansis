@@ -10,7 +10,10 @@
 <body>
 <h2>
 
-  PAGINA EN MANTENIMEINTO
+  <?php
+  $emple = $_GET['id'];
+
+  ?>
 </h2>
 
 

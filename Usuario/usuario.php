@@ -19,18 +19,18 @@
 </div>
            <div class="alv">
 
-            <form method="post" accept-charset="utf-8" action="../classes/log_empleado.php" name="loginform" autocomplete="off" role="form" class="form-signin">
+            <form method="post" accept-charset="utf-8" action="../classes/log_action2.php" name="loginform" autocomplete="off" role="form" class="form-signin">
 
-					      <span id="reauth-email" class="reauth-email"></span>
-                <input class="form-control" placeholder="Usuario" name="nombre" type="text" autofocus="" required value="<?php
+              <?php
 
-                $file = fopen("lect.txt", "r") or exit("Unable to open file!");
-                //Output a line of the file until the end is reached
-                        echo fgets($file);
-                        fclose($file);
+              $file = fopen("lect.txt", "r") or exit("Unable to open file!");
+              //Output a line of the file until the end is reached
+              $file2= fgets($file);
+              $file2= trim($file2);
 
-                 ?>
-                		">
+               ?>
+                <input class="form-control" placeholder="Usuario" name="nombre" type="text" autofocus="" required value="<?php echo $file2;
+                  fclose($file); ?>">
                 <button type="submit" class="btn btn-lg btn-info btn-block btn-signin" name="login" >Iniciar Sesión</button>
             </form><!-- /form -->
 
