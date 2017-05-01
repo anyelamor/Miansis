@@ -25,7 +25,8 @@ var $jQuery_1_9_2 = jQuery.noConflict();
 window.jQuery= $jQuery_1_9_2;
 </script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
-  </head>
+
+</head>
   <body>
 	<?php
 	include("navbar.php");
